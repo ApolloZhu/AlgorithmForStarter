@@ -9,22 +9,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 #define maxLength 1000 + 10
-int a[maxLength];
+int d[maxLength];
 char s[maxLength];
 double f[maxLength];
 #define TEST
 
 void lightsUp(){
     int n, k, first = 1;
-    memset(a, 0, sizeof(a));
+    memset(d, 0, sizeof(d));
     scanf("%d%d", &n, &k);
     for (int i = 1; i <= k; i++)
         for (int j = i; j <= n; j += i)
             // Originally `for (int j = 1; j <= n; j++)`
-            a[j] = !a[j];
+            d[j] = !d[j];
     for (int i = 1; i<=n; i++){
-        if (a[i]){
+        if (d[i]){
             if (first == 1)
                 first = 0;
             else {
@@ -89,7 +90,7 @@ void question(int num){
             // UVa 1585
             int count = 0;
             scanf("%d", &count);
-            memset(a, 0, sizeof(a));
+            memset(d, 0, sizeof(d));
             for (int i = 1; i <= count; i++){
                 memset(s, 0, sizeof(s));
                 scanf("%s", s);
@@ -103,10 +104,10 @@ void question(int num){
                         cur = 1;
                     }
                 }
-                a[i] = tot;
+                d[i] = tot;
             }
             for (int i = 1; i<=count; i++){
-                printf("%d\n", a[i]);
+                printf("%d\n", d[i]);
             }
             break;
             /*
@@ -201,33 +202,56 @@ void question(int num){
         case 3:
         {
             // UVa1225
-            int n;
-            scanf("%d", &n);
-            int s[10];
-            memset(s, 0, sizeof(s));
-            for (int i = 1; i<=n; i++){
-                int tmp = i;
-                while (tmp){
-                    int digit = tmp % 10;
-                    s[digit] += 1;
-                    tmp /= 10;
+            int count;
+            scanf("%d", &count);
+            memset(d, 0, sizeof(d));
+            for (int i = 0; i < count; i++){
+                scanf("%d", &d[i]);
+            }
+            for (int i = 0; i < count; i++){
+                int digits[10];
+                int n = d[i];
+                memset(digits, 0, sizeof(digits));
+                for (int i = 1; i<=n; i++){
+                    int tmp = i;
+                    while (tmp){
+                        int cur = tmp % 10;
+                        digits[cur] += 1;
+                        tmp /= 10;
+                    }
                 }
+                for (int i = 0; i < 9; i++){
+                    printf("%d ", digits[i]);
+                }
+                printf("%d\n", digits[9]);
             }
-            for (int i = 0; i < 9; i++){
-                printf("%d ", s[i]);
-            }
-            printf("%d\n", s[9]);
+
             break;
         }
         case 4:
         {
-            // UVa455
-            printf("Progressing");
+            //MARK: UVa455
+            int count;
+            scanf("%d", &count);
+            memset(s, 0, sizeof(s));
+            for (int i=0; i<count; i++){
+                scanf("%s", &s[i]);
+            }
+            for (int i = 0; i<count; i++){
+                int min = sizeof(s[i]);
+                int half = min/ 2;
+                for (int j = half; j > 0; j--){
+                    if (i % j == 0){
+
+                    }
+                }
+            }
             break;
         }
         case 5:
         {
             //UVa227
+            printf("Progressing");
             break;
         }
         case 6:
@@ -277,7 +301,7 @@ int main(int argc, const char * argv[]) {
         question(i);
     }
 #else
-    question(2);
+    question(4);
 #endif
     return 0;
 }
